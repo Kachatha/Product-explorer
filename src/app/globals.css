@@ -1,8 +1,25 @@
 @import "tailwindcss";
 
+/* ---------- Design tokens ---------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f6fa;
+  --foreground: #1c1f2a;
+  --surface: #ffffff;
+  --surface-alt: #f0f2f8;
+  --border: #dfe3ee;
+  --muted: #6b7185;
+
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-soft: #eef0ff;
+  --on-primary: #ffffff;
+
+  --danger: #dc2626;
+  --danger-soft: #fef2f2;
+
+  --radius: 12px;
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.05), 0 4px 16px rgb(16 24 40 / 0.06);
+  --ring: 0 0 0 3px rgb(79 70 229 / 0.25);
 }
 
 @theme inline {
@@ -14,13 +31,338 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0d0f16;
+    --foreground: #e8eaf2;
+    --surface: #161927;
+    --surface-alt: #1d2133;
+    --border: #2a2f45;
+    --muted: #9aa1b9;
+
+    --primary: #7c83ff;
+    --primary-hover: #939aff;
+    --primary-soft: #23264a;
+    --on-primary: #0d0f16;
+
+    --danger: #f87171;
+    --danger-soft: #2d1517;
+
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 16px rgb(0 0 0 / 0.35);
+    --ring: 0 0 0 3px rgb(124 131 255 / 0.35);
   }
 }
 
+/* ---------- Base ---------- */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans Thai",
+    "Leelawadee UI", Tahoma, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Cards (search form + product form) ---------- */
+main > form,
+main > div {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+}
+
+/* ---------- Forms: label | input, error under input ---------- */
+form {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font: inherit;
+  color: var(--foreground);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+input:hover,
+select:hover {
+  border-color: var(--primary);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: var(--ring);
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+input[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 0.25);
+}
+
+/* error messages */
+form span[role="alert"] {
+  grid-column: 2;
+  min-height: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--danger);
+}
+
+form span[role="alert"]:empty {
+  display: none;
+}
+
+/* ---------- Buttons ---------- */
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: var(--primary);
+  color: var(--on-primary);
+  cursor: pointer;
+  transition: background 0.15s, transform 0.05s, box-shadow 0.15s;
+}
+
+button:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* submit / cancel buttons inside forms sit under the inputs */
+form button {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: 0.5rem;
+}
+
+/* secondary style: cancel + "load data" */
+button[type="button"] {
+  background: var(--surface);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+
+button[type="button"]:hover:not(:disabled) {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+main > button[type="button"] {
+  align-self: flex-start;
+}
+
+/* ---------- Results section ---------- */
+section[aria-live] {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+section[aria-live] > p {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+section[aria-live] > p[role="alert"] {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+/* ---------- Table ---------- */
+table {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+}
+
+tbody td {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr {
+  transition: background 0.12s;
+}
+
+tbody tr:hover {
+  background: var(--primary-soft);
+}
+
+/* price + stock columns: right-aligned numbers */
+th:nth-child(2),
+th:nth-child(3),
+td:nth-child(2),
+td:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+td:first-child {
+  font-weight: 600;
+}
+
+td img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+}
+
+/* ---------- Row action buttons (แก้ไข / ลบ) ---------- */
+td:has(> button) {
+  display: flex;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+td:has(> button) button {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 7px;
+}
+
+/* แก้ไข: ปุ่มรอง โทนม่วงอ่อน */
+td:has(> button) button:first-of-type {
+  background: var(--primary-soft);
+  color: var(--primary);
+  border-color: transparent;
+}
+
+td:has(> button) button:first-of-type:hover:not(:disabled) {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* ลบ: โทนแดง เตือนก่อนกด */
+td:has(> button) button:last-of-type {
+  background: transparent;
+  color: var(--danger);
+  border-color: var(--border);
+}
+
+td:has(> button) button:last-of-type:hover:not(:disabled) {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: var(--on-primary);
+}
+
+td:has(> button) button:last-of-type:focus-visible {
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 0.25);
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 40rem) {
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  form span[role="alert"],
+  form button {
+    grid-column: 1;
+  }
+
+  label {
+    margin-top: 0.5rem;
+  }
+
+  form button {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  td:has(> button) {
+    flex-direction: column;
+  }
+
+  td:has(> button) button {
+    width: 100%;
+  }
 }
