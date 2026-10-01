@@ -24,11 +24,10 @@ export default function ProductSearchForm({ onSearch }: ProductSearchFormProps) 
       onSubmit={handleSubmit(onSearch)}
       noValidate
       style={{
-        backgroundColor: "#ffffff",
-        padding: "20px 24px",
-        borderRadius: "16px",
-        border: "1px solid #e2e8f0",
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)",
+        backgroundColor: "#1e293b",
+        padding: "24px",
+        borderRadius: "8px",
+        border: "1px solid #334155",
         marginBottom: "24px",
         display: "flex",
         flexWrap: "wrap",
@@ -36,30 +35,30 @@ export default function ProductSearchForm({ onSearch }: ProductSearchFormProps) 
         gap: "16px",
       }}
     >
-      <div style={{ flex: "1 1 220px", display: "flex", flexDirection: "column", gap: "6px" }}>
-        <label htmlFor="q" style={{ fontSize: "12px", fontWeight: "600", color: "#475569" }}>
+      <div style={{ flex: "1 1 250px", display: "flex", flexDirection: "column", gap: "8px" }}>
+        <label htmlFor="q" style={{ fontSize: "13px", color: "#cbd5e1" }}>
           ค้นหาสินค้า
         </label>
         <input
           id="q"
           {...register("q")}
-          placeholder="พิมพ์ชื่อสินค้าเพื่อค้นหา..."
+          placeholder="พิมพ์ชื่อสินค้า..."
           style={{
             width: "100%",
-            padding: "10px 14px",
-            borderRadius: "10px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#f8fafc",
+            padding: "12px 14px",
+            borderRadius: "6px",
+            border: "1px solid #475569",
+            backgroundColor: "#0f172a",
             fontSize: "14px",
+            color: "#f8fafc",
             outline: "none",
             boxSizing: "border-box",
-            color: "#0f172a",
           }}
         />
       </div>
 
-      <div style={{ width: "150px", display: "flex", flexDirection: "column", gap: "6px" }}>
-        <label htmlFor="sortBy" style={{ fontSize: "12px", fontWeight: "600", color: "#475569" }}>
+      <div style={{ width: "160px", display: "flex", flexDirection: "column", gap: "8px" }}>
+        <label htmlFor="sortBy" style={{ fontSize: "13px", color: "#cbd5e1" }}>
           เรียงตาม
         </label>
         <select
@@ -67,14 +66,14 @@ export default function ProductSearchForm({ onSearch }: ProductSearchFormProps) 
           {...register("sortBy")}
           style={{
             width: "100%",
-            padding: "10px 14px",
-            borderRadius: "10px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#f8fafc",
+            padding: "12px 14px",
+            borderRadius: "6px",
+            border: "1px solid #475569",
+            backgroundColor: "#0f172a",
             fontSize: "14px",
+            color: "#f8fafc",
             outline: "none",
             boxSizing: "border-box",
-            color: "#0f172a",
             cursor: "pointer",
           }}
         >
@@ -84,9 +83,9 @@ export default function ProductSearchForm({ onSearch }: ProductSearchFormProps) 
         </select>
       </div>
 
-      <div style={{ width: "120px", display: "flex", flexDirection: "column", gap: "6px" }}>
-        <label htmlFor="limit" style={{ fontSize: "12px", fontWeight: "600", color: "#475569" }}>
-          แสดงรายการ
+      <div style={{ width: "120px", display: "flex", flexDirection: "column", gap: "8px" }}>
+        <label htmlFor="limit" style={{ fontSize: "13px", color: "#cbd5e1" }}>
+          รายการต่อหน้า
         </label>
         <input
           id="limit"
@@ -94,37 +93,36 @@ export default function ProductSearchForm({ onSearch }: ProductSearchFormProps) 
           {...register("limit", { valueAsNumber: true })}
           style={{
             width: "100%",
-            padding: "10px 14px",
-            borderRadius: "10px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#f8fafc",
+            padding: "12px 14px",
+            borderRadius: "6px",
+            border: "1px solid #475569",
+            backgroundColor: "#0f172a",
             fontSize: "14px",
+            color: "#f8fafc",
             outline: "none",
             boxSizing: "border-box",
-            color: "#0f172a",
             textAlign: "center",
           }}
         />
-        {errors.limit && <span style={{ color: "#ef4444", fontSize: "12px" }}>{errors.limit.message}</span>}
+        {errors.limit && <span style={{ color: "#f43f5e", fontSize: "12px" }}>{errors.limit.message}</span>}
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
         style={{
-          padding: "10px 24px",
-          backgroundColor: "#4f46e5",
-          color: "#ffffff",
+          padding: "12px 28px",
+          backgroundColor: "#06b6d4",
+          color: "#083344",
           border: "none",
-          borderRadius: "10px",
-          fontWeight: "600",
+          borderRadius: "6px",
+          fontWeight: "700",
           fontSize: "14px",
           cursor: "pointer",
-          height: "42px",
-          boxShadow: "0 4px 12px rgba(79, 70, 229, 0.25)",
+          height: "45px",
         }}
       >
-        {isSubmitting ? "กำลังค้นหา..." : "ค้นหา"}
+        {isSubmitting ? "ค้นหา..." : "ค้นหา"}
       </button>
     </form>
   );
